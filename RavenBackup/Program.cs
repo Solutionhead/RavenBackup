@@ -28,7 +28,9 @@ namespace RavenBackup
 
                 case "-IMPORT":
                     arguments = args.ToList().GetRange(1, args.Count() - 1).ToArray();
-                    DatabaseHelper.ImportDatabase(arguments.Where((s, i) => i == 0).FirstOrDefault(), arguments.Where((s, i) => i == 1).FirstOrDefault());
+                    DatabaseHelper.ImportDatabase(arguments.Where((s, i) => i == 0).FirstOrDefault(),
+                        arguments.Where((s, i) => i >= 1)
+                        .Aggregate((string)null, (c, n) => c == null ? n : string.Format("{0} {1}", c, n)));
                     break;
             }
         }
